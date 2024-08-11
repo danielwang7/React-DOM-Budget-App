@@ -8,7 +8,7 @@ import { fetchData } from "../helpers";
 import wave from "../assets/wave.svg";
 
 // components
-import Nav from "../components/nav";
+import Nav from "../components/Nav";
 
 // loader
 export function mainLoader() {
@@ -20,8 +20,7 @@ const Main = () => {
 
     const { userName } = useLoaderData();
     return (
-        <div>
-            <h1>Main</h1>
+        <div className="layout">
             <Nav userName={userName}></Nav>
             <main>
                 <Outlet />
