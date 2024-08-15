@@ -1,8 +1,9 @@
 // rrd imports
 import { useLoaderData } from "react-router";
+import { Link } from "react-router-dom";
 
 // helper functions
-import { createBudget, createExpense, fetchData, wait } from "../helpers";
+import { createBudget, createExpense, deleteItem, fetchData, wait } from "../helpers";
 
 // libraries
 import { toast } from "react-toastify";
@@ -14,7 +15,6 @@ import AddExpenseForm from "../components/AddExpenseForm";
 import BudgetItem from "../components/BudgetItem";
 import ExpenseTable from "../components/ExpenseTable"
 
-
 // loader
 export function dashBoardLoader() {
     const userName = fetchData("userName");
@@ -22,7 +22,6 @@ export function dashBoardLoader() {
     const expenses = fetchData("expenses");
     return { userName, budgetData, expenses };
 }
-
 
 // action 
 export async function dashBoardAction({ request }) {
@@ -67,7 +66,14 @@ export async function dashBoardAction({ request }) {
             throw new Error(`There was a problem creating your expense; ${e}`);
         }
     }
-
+    if (_action === "deleteExpense") {
+        try {
+            return toast.success(`Expense of ${values.expenseName} deleted!`)
+        }
+        catch (e) {
+            throw new Error(`There was a problem creating your expense; ${e}`);
+        }
+    }
 }
 
 const Dashboard = () => {
@@ -103,8 +109,18 @@ const Dashboard = () => {
                                                     <div className="grid-md">
                                                         <h2>Recent Expenses</h2>
                                                         <ExpenseTable
-                                                            expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)}
+                                                            expenses={expenses
+                                                                .sort((a, b) => b.createdAt - a.createdAt)
+                                                                .slice(0, 8)}
                                                         />
+                                                        {expenses.length > 8 && (
+                                                            <Link
+                                                                to="expenses"
+                                                                className="btn btn--dark"
+                                                            >
+                                                                View all expenses
+                                                            </Link>
+                                                        )}
                                                     </div>
                                                 )
                                             }
@@ -112,6 +128,7 @@ const Dashboard = () => {
                                     )
                                     :
                                     (
+                                        /* Displayed for no budget form */
                                         <div className="grid-lg">
                                             <h3>You have no budgets!</h3>
                                             <div className="grid-lg">

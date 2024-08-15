@@ -12,7 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // routes
 import Dashboard, { dashBoardAction, dashBoardLoader } from "./pages/Dashboard";
+import ExpensesPage, { expensesLoader, expensesAction } from "./pages/ExpensesPage";
 import Error from "./pages/Error";
+import BudgetPage, { budgetLoader } from "./pages/BudgetPage";
 
 // layouts
 import Main from "./layouts/Main";
@@ -33,6 +35,21 @@ const router = createBrowserRouter([
         loader: dashBoardLoader,
         action: dashBoardAction,
         errorElement: <Error />,
+      },
+      {
+        path: "expenses",
+        element: <ExpensesPage />,
+        action: expensesAction,
+        loader: expensesLoader,
+        errorElement: <Error />,
+      },
+      {
+        path: "budget/:id",
+        element: <BudgetPage />,
+        loader: budgetLoader,
+        errorElement: <Error />,
+        // action: logoutAction,
+
       },
       {
         path: "logout",
