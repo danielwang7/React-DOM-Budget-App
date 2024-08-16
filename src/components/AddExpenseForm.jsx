@@ -58,6 +58,7 @@ const AddExpenseForm = ({ budgetData }) => {
                     </div>
                 </div>
 
+                {/* Hidden class if there is only one budget */}
                 <div className="grid-xs" hidden={budgetData.length === 1}>
 
                     <label htmlFor="newExpense">Budget Category</label>

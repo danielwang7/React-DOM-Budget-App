@@ -30,8 +30,8 @@ export async function expensesAction({ request }) {
             throw new Error(`There was a problem creating your expense; ${e}`);
         }
     }
-}
 
+}
 
 const ExpensesPage = () => {
     const { expenses } = useLoaderData();

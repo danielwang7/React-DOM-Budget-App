@@ -68,6 +68,7 @@ export async function dashBoardAction({ request }) {
     }
     if (_action === "deleteExpense") {
         try {
+            deleteItem({ key: "expenses", id: values.expenseId });
             return toast.success(`Expense of ${values.expenseName} deleted!`)
         }
         catch (e) {

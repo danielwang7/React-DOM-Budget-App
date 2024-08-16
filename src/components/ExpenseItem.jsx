@@ -7,7 +7,12 @@ import { formatCurrency, formatDate, getMatchingItems } from '../helpers'
 // library
 import { TrashIcon } from '@heroicons/react/16/solid';
 
-const ExpenseItem = ({ expense }) => {
+const ExpenseItem = ({ expense, showBudget }) => {
+
+    if (!expense) {
+        console.error("Expense data is missing or incomplete.", expense);
+        return <td>Error: Expense data is missing.</td>;
+    }
 
     const fetcher = useFetcher();
 
@@ -17,22 +22,26 @@ const ExpenseItem = ({ expense }) => {
         value: expense.budgetId
     })[0];
 
+    console.log("expense", expense);
+
     return (
         <>
             <td>{expense.name}</td>
             <td>{formatCurrency(expense.amount)}</td>
-            <td>{formatDate(expense.createdAT)}</td>
-            <td>
-                <Link
-                    to={`/budget/${budget.id}`}
-                    style={{
-                        "--accent": budget.color
-                    }}
-                >
-                    {budget.name}
-                </Link>
+            <td>{formatDate(expense.createdAt)}</td>
+            {showBudget ?? (
+                <td>
+                    <Link
+                        to={`/budget/${budget.id}`}
+                        style={{
+                            "--accent": budget.color
+                        }}
+                    >
+                        {budget.name}
+                    </Link>
 
-            </td>
+                </td>
+            )}
             <td>
                 <fetcher.Form method="post">
                     <input type="hidden" name="_action" value="deleteExpense" />
