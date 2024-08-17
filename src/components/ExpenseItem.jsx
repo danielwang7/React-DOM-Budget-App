@@ -22,8 +22,6 @@ const ExpenseItem = ({ expense, showBudget }) => {
         value: expense.budgetId
     })[0];
 
-    console.log("expense", expense);
-
     return (
         <>
             <td>{expense.name}</td>

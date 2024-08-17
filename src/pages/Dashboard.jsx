@@ -131,7 +131,7 @@ const Dashboard = () => {
                                     (
                                         /* Displayed for no budget form */
                                         <div className="grid-lg">
-                                            <h3>You have no budgets!</h3>
+                                            <h3>Create your first budget using the form below!</h3>
                                             <div className="grid-lg">
                                                 <div className="flex-lg">
                                                     <AddBudgetForm />

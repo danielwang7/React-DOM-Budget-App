@@ -45,10 +45,9 @@ const BudgetItem = ({ budgetData, showDelete = false }) => {
                             }
                         >
                             <button type="submit" className="btn btn--warning">
-                                Delete
+                                Delete Budget
                                 <TrashIcon width={20} />
                             </button>
-
                         </Form>
                     </div>
                 ) : (
