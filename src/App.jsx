@@ -23,48 +23,53 @@ import Main from "./layouts/Main";
 import { logoutAction } from "./actions/logout";
 import { deleteBudget } from "./actions/deleteBudget";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Main />,
+      loader: dashBoardLoader,
+      errorElement: <Error />,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+          loader: dashBoardLoader,
+          action: dashBoardAction,
+          errorElement: <Error />,
+        },
+        {
+          path: "expenses",
+          element: <ExpensesPage />,
+          action: expensesAction,
+          loader: expensesLoader,
+          errorElement: <Error />,
+        },
+        {
+          path: "budget/:id",
+          element: <BudgetPage />,
+          action: budgetAction,
+          loader: budgetLoader,
+          errorElement: <Error />,
+          children: [
+            {
+              path: "delete",
+              action: deleteBudget,
+            },
+          ],
+        },
+        {
+          path: "logout",
+          action: logoutAction,
+          element: <h1>Logging out...</h1>,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <Main />,
-    loader: dashBoardLoader,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
-        element: <Dashboard />,
-        loader: dashBoardLoader,
-        action: dashBoardAction,
-        errorElement: <Error />,
-      },
-      {
-        path: "expenses",
-        element: <ExpensesPage />,
-        action: expensesAction,
-        loader: expensesLoader,
-        errorElement: <Error />,
-      },
-      {
-        path: "budget/:id",
-        element: <BudgetPage />,
-        action: budgetAction,
-        loader: budgetLoader,
-        errorElement: <Error />,
-        children: [
-          {
-            path: "delete",
-            action: deleteBudget,
-          },
-        ],
-      },
-      {
-        path: "logout",
-        action: logoutAction,
-        element: <h1>Logging out...</h1>,
-      },
-    ],
-  },
-]);
+    basename: "/React-DOM-Budget-App", // NEW BASENAME
+  }
+);
 
 
 function App() {
